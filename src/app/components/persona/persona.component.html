@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Crud Dulce Martinez</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='persona.component.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div class="contenido">
+    <div class="container-fluid">
+
+        <div class="text-right mb-4">
+            <div class="boton1">
+            <button class="btn btn-primary" (click)="openModal(popup, null!)">
+              <i class="fa fa-plus"></i> Agregar Nuevo
+            </button>
+        </div>
+          </div>
+
+        <div class="row" *ngIf="listperson.length">
+            <div class="col-md-3" *ngFor="let person of listperson">
+                <div class="card">
+                    <div class="heading">{{person.nombre}}</div>
+                    <div class="sub-heading">{{person.apellido}}</div>
+
+                    <div class="icon">
+                        <i class="fa fa-edit text-primary" (click)="openModal(popup, person.id!)">&nbsp; </i>
+                        <i class="fa fa-trash text-danger" (click)="deletepersona(person.id!)"> &nbsp; </i>
+                      </div>
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+        <ng-template #popup let-d="dismiss">
+            <div class="modal-header">
+                {{detaperson ? 'Actulizar':'Agregar'}} persona
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formPer">
+
+                    <div class="form-group">
+                        <label for="nombre"> Nombre</label>
+                        <input id="nombre" type="text" formControlName="nombre" class="form-control" 
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido"> Apellido </label>
+                        <input id="apellido" type="text" formControlName="apellido"
+                            class="form-control" />
+                    </div>
+
+                </form>
+                <div class="boton">
+                    <button class="btn btn-outline-primary btn-sm pl-4 pr-4 mr-2"
+                            [disabled]="!formPer.valid"
+                            (click)="detaperson ? updatepersona(detaperson.id!): addpersona(); d()"> Guardar</button>
+                        </div>
+                        <div class="boton2">
+                    <button class="btn btn-outline-primary btn-sm pl-4 pr-4 ml-2" (click)="d()"> Cancelar </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    
+</body>
+</html>
